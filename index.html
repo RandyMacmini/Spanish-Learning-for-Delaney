@@ -3,1120 +3,345 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spanish Learning Studio</title>
+    <title>Spanish Learning for Delaney</title>
     <style>
         :root {
-            --color-bg-primary: #2d1b2e;
-            --color-bg-secondary: #3d2544;
-            --color-bg-tertiary: #563d5f;
-            --color-text-primary: #fce7f3;
-            --color-text-secondary: #f9a8d4;
-            --color-text-muted: #f0abfc;
-            --color-accent: #ec4899;
-            --color-accent-hover: #db2777;
-            --color-success: #f472b6;
-            --color-warning: #fb7185;
-            --color-error: #fda4af;
+            --pink-dark: #2d1b2e;
+            --pink-mid: #3d2544;
+            --pink-soft: #563d5f;
+            --pink-accent: #ec4899;
+            --pink-hover: #db2777;
+            --pink-light: #fce7f3;
+            --pink-muted: #f9a8d4;
+            --pink-faint: #f0abfc;
+            --pink-warn: #fb7185;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: var(--color-bg-primary);
-            background-image: 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.08"><text x="10" y="30" font-size="20" fill="%23ec4899">🍼</text><text x="60" y="25" font-size="18" fill="%23ec4899">👶</text><text x="35" y="70" font-size="16" fill="%23ec4899">🧸</text><text x="80" y="75" font-size="18" fill="%23ec4899">💕</text><text x="15" y="85" font-size="14" fill="%23ec4899">🎀</text></svg>');
+            background-color: var(--pink-dark);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' opacity='0.07'%3E%3Ctext x='10' y='40' font-size='28'%3E%F0%9F%8D%BC%3C/text%3E%3Ctext x='110' y='30' font-size='24'%3E%F0%9F%91%B6%3C/text%3E%3Ctext x='60' y='100' font-size='22'%3E%F0%9F%A7%B8%3C/text%3E%3Ctext x='150' y='110' font-size='26'%3E%F0%9F%92%95%3C/text%3E%3Ctext x='20' y='160' font-size='20'%3E%F0%9F%8E%80%3C/text%3E%3C/svg%3E");
             background-size: 200px 200px;
             background-repeat: repeat;
-            color: var(--color-text-primary);
-            padding: 20px;
+            color: var(--pink-light);
+            min-height: 100vh;
+            padding: 24px 16px 80px;
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
+        .container { max-width: 720px; margin: 0 auto; width: 100%; flex: 1; }
+        header { text-align: center; margin-bottom: 28px; }
+        header h1 { font-size: 1.8rem; color: var(--pink-accent); margin-bottom: 6px; }
+        header p { color: var(--pink-faint); font-size: 0.9rem; }
+        .input-card {
+            background: var(--pink-mid);
+            border-radius: 16px; padding: 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
+        .input-card label {
+            display: block; color: var(--pink-muted);
+            font-size: 0.85rem; font-weight: 600;
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em;
         }
-
-        h1 {
-            color: var(--color-accent);
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .subtitle {
-            color: var(--color-text-muted);
-            font-size: 0.95rem;
-        }
-
-        .input-section {
-            background: var(--color-bg-secondary);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        label {
-            display: block;
-            color: var(--color-text-secondary);
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
         textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid var(--color-bg-tertiary);
-            border-radius: 8px;
-            background: var(--color-bg-primary);
-            color: var(--color-text-primary);
-            font-size: 1rem;
-            resize: vertical;
-            min-height: 100px;
-            transition: border-color 0.3s;
+            width: 100%; padding: 14px 16px;
+            border: 2px solid var(--pink-soft); border-radius: 10px;
+            background: var(--pink-dark); color: var(--pink-light);
+            font-size: 1.05rem; resize: none; min-height: 90px;
+            transition: border-color 0.2s; font-family: inherit;
         }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--color-accent);
+        textarea:focus { outline: none; border-color: var(--pink-accent); }
+        textarea::placeholder { color: var(--pink-soft); }
+        .ask-btn {
+            margin-top: 14px; width: 100%; padding: 14px;
+            background: var(--pink-accent); color: #fff; border: none;
+            border-radius: 10px; font-size: 1rem; font-weight: 600;
+            cursor: pointer; transition: background 0.2s, transform 0.1s;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
-        .button-group {
-            display: flex;
-            gap: 12px;
-            margin-top: 15px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-primary {
-            background: var(--color-accent);
-            color: var(--color-bg-primary);
-        }
-
-        .btn-primary:hover {
-            background: var(--color-accent-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: var(--color-bg-tertiary);
-            color: var(--color-text-primary);
-        }
-
-        .btn-secondary:hover {
-            background: #475569;
-        }
-
-        .results-section {
-            display: none;
-            background: var(--color-bg-secondary);
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        .translation-main {
-            background: var(--color-bg-primary);
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--color-accent);
-        }
-
-        .spanish-text {
-            font-size: 1.5rem;
-            color: var(--color-accent);
-            margin-bottom: 10px;
-            font-weight: 500;
-        }
-
-        .pronunciation {
-            color: var(--color-text-muted);
-            font-style: italic;
-            font-size: 0.95rem;
-            margin-bottom: 10px;
-        }
-
-        .grammar-note {
-            background: rgba(56, 189, 248, 0.1);
-            padding: 12px;
-            border-radius: 6px;
-            margin: 15px 0;
-            border-left: 3px solid var(--color-accent);
-        }
-
-        .grammar-note strong {
-            color: var(--color-accent);
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .word-breakdown {
-            background: var(--color-bg-tertiary);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-        }
-
-        .word-breakdown h3 {
-            color: var(--color-accent);
-            font-size: 1rem;
-            margin-bottom: 12px;
-        }
-
-        .word-pair {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--color-bg-secondary);
-        }
-
-        .word-pair:last-child {
-            border-bottom: none;
-        }
-
-        .spanish-word {
-            color: var(--color-text-primary);
-            font-weight: 500;
-        }
-
-        .english-word {
-            color: var(--color-text-secondary);
-        }
-
-        .examples-section {
-            margin-top: 20px;
-        }
-
-        .examples-section h3 {
-            color: var(--color-accent);
-            font-size: 1rem;
-            margin-bottom: 12px;
-        }
-
-        .example-item {
-            background: var(--color-bg-primary);
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-
-        .example-spanish {
-            color: var(--color-text-primary);
-            margin-bottom: 4px;
-        }
-
-        .example-english {
-            color: var(--color-text-muted);
-            font-size: 0.9rem;
-        }
-
-        .toggle-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .btn-toggle {
-            padding: 8px 16px;
-            background: var(--color-bg-tertiary);
-            color: var(--color-text-secondary);
-            border: 2px solid transparent;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .btn-toggle.active {
-            background: rgba(56, 189, 248, 0.2);
-            border-color: var(--color-accent);
-            color: var(--color-accent);
-        }
-
-        .alternative-translation {
-            display: none;
-            background: var(--color-bg-primary);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            border-left: 4px solid var(--color-warning);
-        }
-
-        .alternative-translation h4 {
-            color: var(--color-warning);
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-        }
-
-        .vocab-card {
-            background: var(--color-bg-tertiary);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border: 2px dashed var(--color-accent);
-        }
-
-        .vocab-card h3 {
-            color: var(--color-accent);
-            font-size: 1rem;
-            margin-bottom: 10px;
-        }
-
-        .saved-vocab {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .vocab-tag {
-            background: var(--color-bg-primary);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            color: var(--color-text-secondary);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .vocab-tag .remove {
-            cursor: pointer;
-            color: var(--color-error);
-            font-weight: bold;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--color-bg-tertiary);
-        }
-
-        .tab {
-            padding: 10px 20px;
-            background: transparent;
-            color: var(--color-text-muted);
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-        }
-
-        .tab.active {
-            color: var(--color-accent);
-            border-bottom-color: var(--color-accent);
-        }
-
-        .tab-content {
+        .ask-btn:hover { background: var(--pink-hover); transform: translateY(-1px); }
+        .ask-btn:disabled { background: var(--pink-soft); cursor: not-allowed; transform: none; }
+        .spinner {
+            width: 18px; height: 18px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
             display: none;
         }
-
-        .tab-content.active {
-            display: block;
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .examples-label {
+            color: var(--pink-faint); font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.06em;
+            font-weight: 600; margin: 16px 0 8px;
         }
-
-        .conjugation-table {
-            background: var(--color-bg-primary);
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 15px;
-            overflow-x: auto;
+        .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+        .chip {
+            background: var(--pink-mid); border: 1px solid var(--pink-soft);
+            color: var(--pink-muted); padding: 6px 14px;
+            border-radius: 20px; font-size: 0.82rem; cursor: pointer;
+            transition: all 0.2s;
         }
-
-        .conjugation-table table {
-            width: 100%;
-            border-collapse: collapse;
+        .chip:hover { background: var(--pink-soft); color: var(--pink-light); border-color: var(--pink-accent); }
+        .conversation { display: flex; flex-direction: column; gap: 18px; }
+        .bubble-row { display: flex; align-items: flex-end; gap: 12px; }
+        .bubble-row.english { flex-direction: row; }
+        .bubble-row.spanish { flex-direction: row-reverse; }
+        .avatar {
+            width: 46px; height: 46px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-
-        .conjugation-table th {
-            background: var(--color-bg-tertiary);
-            color: var(--color-accent);
-            padding: 10px;
-            text-align: left;
-            font-size: 0.9rem;
+        .eng-avatar { background: #3b4a6b; }
+        .esp-avatar { background: #6b2b4a; }
+        .bubble { max-width: 78%; padding: 16px 20px; border-radius: 20px; box-shadow: 0 3px 10px rgba(0,0,0,0.25); }
+        .english-bubble { background: #2a3a5c; border-bottom-left-radius: 4px; }
+        .spanish-bubble { background: #5c1a3a; border-bottom-right-radius: 4px; }
+        .bubble-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+        .english-bubble .bubble-label { color: #93c5fd; }
+        .spanish-bubble .bubble-label { color: var(--pink-muted); }
+        .bubble-text { font-size: 1.15rem; line-height: 1.5; }
+        .english-bubble .bubble-text { color: #e0eaff; }
+        .spanish-bubble .bubble-text { color: var(--pink-light); font-weight: 500; }
+        .bubble-note { margin-top: 8px; font-size: 0.78rem; color: var(--pink-faint); font-style: italic; }
+        .loading-bubble .bubble-text {
+            color: var(--pink-faint); font-style: italic;
+            animation: pulse 1.2s ease-in-out infinite;
         }
-
-        .conjugation-table td {
-            padding: 10px;
-            border-bottom: 1px solid var(--color-bg-tertiary);
-            color: var(--color-text-secondary);
+        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+        .placeholder-msg { text-align: center; color: var(--pink-soft); font-style: italic; padding: 40px 20px; font-size: 0.95rem; }
+        .clear-btn {
+            width: 100%; padding: 10px; background: transparent;
+            border: 1px solid var(--pink-soft); color: var(--pink-muted);
+            border-radius: 8px; font-size: 0.85rem; cursor: pointer;
+            margin-top: 20px; margin-bottom: 40px; transition: all 0.2s;
         }
-
-        .empty-state {
+        .clear-btn:hover { border-color: var(--pink-warn); color: var(--pink-warn); }
+        /* Footer */
+        .page-footer {
             text-align: center;
-            color: var(--color-text-muted);
-            padding: 40px 20px;
-            font-style: italic;
+            padding: 18px 16px;
+            color: var(--pink-faint);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--pink-soft);
+            margin-top: 20px;
+            letter-spacing: 0.02em;
         }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .input-section, .results-section {
-                padding: 18px;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
-
-            button {
-                width: 100%;
-            }
-
-            .word-pair {
-                flex-direction: column;
-                gap: 4px;
-            }
+        @media (max-width: 500px) {
+            header h1 { font-size: 1.4rem; }
+            .bubble { max-width: 90%; padding: 12px 14px; }
+            .bubble-text { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🇪🇸 Spanish Learning for Delaney 👶💕</h1>
-            <p class="subtitle">Auntie's special Spanish translator for babysitting adventures! 🍼✨</p>
-        </header>
+<div class="container">
 
-        <div class="tabs">
-            <button class="tab active" data-tab="translator">Translator</button>
-            <button class="tab" data-tab="vocabulary">My Vocabulary</button>
-            <button class="tab" data-tab="conjugation">Conjugation Helper</button>
-        </div>
+    <header>
+        <h1>&#127466;&#127480; Spanish Learning for Delaney &#128118;&#128149;</h1>
+        <p>Auntie's special Spanish practice &mdash; type ANYTHING in English! &#127868;&#10024;</p>
+    </header>
 
-        <div id="translator-tab" class="tab-content active">
-            <div class="input-section">
-                <label for="englishInput">Enter English text to translate:</label>
-                <textarea id="englishInput" placeholder="Type any English word, phrase, or sentence..."></textarea>
-                
-                <div class="button-group">
-                    <button class="btn-primary" id="translateBtn">Translate to Spanish</button>
-                    <button class="btn-secondary" id="clearBtn">Clear</button>
-                </div>
-            </div>
+    <div class="input-card">
+        <label>Type anything in English:</label>
+        <textarea id="englishInput" placeholder="Type any sentence, question, or phrase..." rows="3"></textarea>
+        <button class="ask-btn" id="askBtn">
+            <div class="spinner" id="spinner"></div>
+            <span id="btnText">&#128172; Say it in Spanish!</span>
+        </button>
+        <div class="examples-label">Quick examples &mdash; tap to try:</div>
+        <div class="chips" id="chips"></div>
+    </div>
 
-            <div class="results-section" id="resultsSection">
-                <div class="toggle-buttons">
-                    <button class="btn-toggle active" id="standardBtn">Standard Translation</button>
-                    <button class="btn-toggle" id="nativeBtn">Native-like</button>
-                    <button class="btn-toggle" id="studentBtn">Student Level</button>
-                </div>
-
-                <div id="standardTranslation" class="translation-display">
-                    <div class="translation-main">
-                        <div class="spanish-text" id="spanishText"></div>
-                        <div class="pronunciation" id="pronunciation"></div>
-                    </div>
-
-                    <div class="grammar-note" id="grammarNote"></div>
-
-                    <div class="word-breakdown">
-                        <h3>📚 Word-by-Word Breakdown</h3>
-                        <div id="wordBreakdown"></div>
-                    </div>
-
-                    <div class="examples-section">
-                        <h3>💡 Example Sentences (A2-B1 Level)</h3>
-                        <div id="examples"></div>
-                    </div>
-
-                    <button class="btn-secondary" id="saveVocabBtn" style="margin-top: 15px;">⭐ Save to My Vocabulary</button>
-                </div>
-
-                <div class="alternative-translation" id="nativeTranslation">
-                    <h4>🗣️ Native-like Translation</h4>
-                    <div class="spanish-text" id="nativeText" style="color: var(--color-warning); font-size: 1.3rem;"></div>
-                    <p style="color: var(--color-text-muted); margin-top: 8px; font-size: 0.9rem;" id="nativeExplanation"></p>
-                </div>
-
-                <div class="alternative-translation" id="studentTranslation">
-                    <h4>📖 Student Level Translation</h4>
-                    <div class="spanish-text" id="studentText" style="color: var(--color-success); font-size: 1.3rem;"></div>
-                    <p style="color: var(--color-text-muted); margin-top: 8px; font-size: 0.9rem;" id="studentExplanation"></p>
-                </div>
-            </div>
-        </div>
-
-        <div id="vocabulary-tab" class="tab-content">
-            <div class="input-section">
-                <h2 style="color: var(--color-accent); margin-bottom: 15px;">📖 My Saved Vocabulary</h2>
-                <div id="vocabList" class="empty-state">
-                    No vocabulary saved yet. Use the translator and click "Save to My Vocabulary" to start building your word collection!
-                </div>
-            </div>
-        </div>
-
-        <div id="conjugation-tab" class="tab-content">
-            <div class="input-section">
-                <label for="verbInput">Enter a Spanish verb (infinitive form):</label>
-                <textarea id="verbInput" placeholder="e.g., hablar, comer, vivir..." style="min-height: 60px;"></textarea>
-                <div class="button-group">
-                    <button class="btn-primary" id="conjugateBtn">Show Conjugations</button>
-                </div>
-                
-                <div id="conjugationResults"></div>
-            </div>
+    <div class="conversation" id="conversation">
+        <div class="placeholder-msg" id="placeholder">
+            &#127872; Type anything above and I'll translate the whole thing into Spanish! &#127466;&#127480;
         </div>
     </div>
 
-    <script>
-        const translations = {
-            "I am happy": {
-                spanish: "Estoy feliz",
-                pronunciation: "es-TOY feh-LEES",
-                breakdown: [
-                    { spanish: "Estoy", english: "I am" },
-                    { spanish: "feliz", english: "happy" }
-                ],
-                grammar: "Uses 'estar' (not 'ser') because happiness is a temporary emotional state. 'Feliz' is gender-neutral.",
-                examples: [
-                    { spanish: "Estoy contento hoy.", english: "I am happy today." },
-                    { spanish: "Ella está muy feliz con su familia.", english: "She is very happy with her family." },
-                    { spanish: "¿Estás feliz con tu trabajo?", english: "Are you happy with your job?" }
-                ],
-                native: { text: "Estoy re feliz", explanation: "Native speakers often add 're' (very) for emphasis in casual conversation." },
-                student: { text: "Yo estoy feliz", explanation: "Simpler version includes subject pronoun 'yo' for clarity." }
-            },
-            "I go to school": {
-                spanish: "Voy a la escuela",
-                pronunciation: "VOY ah lah es-KWEH-lah",
-                breakdown: [
-                    { spanish: "Voy", english: "I go" },
-                    { spanish: "a", english: "to" },
-                    { spanish: "la", english: "the" },
-                    { spanish: "escuela", english: "school" }
-                ],
-                grammar: "Uses present tense 'ir' (to go). 'Escuela' is feminine, so uses 'la'. 'A + la' contracts to 'a la' (unlike 'a + el' → 'al').",
-                examples: [
-                    { spanish: "Voy a la tienda cada día.", english: "I go to the store every day." },
-                    { spanish: "Él va a la universidad.", english: "He goes to the university." },
-                    { spanish: "Nosotros vamos al cine.", english: "We go to the movies." }
-                ],
-                native: { text: "Voy al cole", explanation: "'Cole' is colloquial for 'colegio/escuela' and 'al' contracts 'a + el'." },
-                student: { text: "Yo voy a mi escuela", explanation: "Adds 'yo' and 'mi' for extra clarity." }
-            },
-            "The food is delicious": {
-                spanish: "La comida está deliciosa",
-                pronunciation: "lah koh-MEE-dah es-TAH deh-lee-SYOH-sah",
-                breakdown: [
-                    { spanish: "La", english: "The" },
-                    { spanish: "comida", english: "food" },
-                    { spanish: "está", english: "is" },
-                    { spanish: "deliciosa", english: "delicious" }
-                ],
-                grammar: "Uses 'estar' (not 'ser') because we're describing how the food tastes right now. 'Deliciosa' agrees with 'comida' (feminine).",
-                examples: [
-                    { spanish: "El pastel está muy rico.", english: "The cake is very tasty." },
-                    { spanish: "Las frutas están frescas.", english: "The fruits are fresh." },
-                    { spanish: "Esta sopa está caliente.", english: "This soup is hot." }
-                ],
-                native: { text: "La comida está riquísima", explanation: "Native speakers often use the superlative '-ísimo/a' for emphasis." },
-                student: { text: "La comida es buena", explanation: "Simpler version uses 'ser' + 'buena' (good), though technically 'estar' is more accurate." }
-            },
-            "I like music": {
-                spanish: "Me gusta la música",
-                pronunciation: "meh GOOS-tah lah MOO-see-kah",
-                breakdown: [
-                    { spanish: "Me", english: "to me" },
-                    { spanish: "gusta", english: "is pleasing" },
-                    { spanish: "la", english: "the" },
-                    { spanish: "música", english: "music" }
-                ],
-                grammar: "'Gustar' works differently than English 'like' - literally means 'music is pleasing to me'. Singular 'gusta' because 'música' is singular.",
-                examples: [
-                    { spanish: "Me gustan los libros.", english: "I like books." },
-                    { spanish: "¿Te gusta el chocolate?", english: "Do you like chocolate?" },
-                    { spanish: "A ella le gusta bailar.", english: "She likes to dance." }
-                ],
-                native: { text: "Me encanta la música", explanation: "'Encantar' (to love/really like) is more emphatic and commonly used." },
-                student: { text: "A mí me gusta la música", explanation: "Adds 'a mí' for emphasis and clarity about who likes it." }
-            },
-            "Where is the bathroom": {
-                spanish: "¿Dónde está el baño?",
-                pronunciation: "DOHN-deh es-TAH el BAH-nyoh",
-                breakdown: [
-                    { spanish: "¿Dónde", english: "Where" },
-                    { spanish: "está", english: "is" },
-                    { spanish: "el", english: "the" },
-                    { spanish: "baño?", english: "bathroom?" }
-                ],
-                grammar: "Uses 'estar' for location. 'Baño' is masculine ('el'). Question marks appear at both beginning (¿) and end (?).",
-                examples: [
-                    { spanish: "¿Dónde está la biblioteca?", english: "Where is the library?" },
-                    { spanish: "¿Dónde están mis llaves?", english: "Where are my keys?" },
-                    { spanish: "¿Dónde estás?", english: "Where are you?" }
-                ],
-                native: { text: "¿Dónde queda el baño?", explanation: "'Quedar' (to be located) is very common in conversational Spanish for locations." },
-                student: { text: "¿Dónde está el cuarto de baño?", explanation: "Full formal term 'cuarto de baño' instead of shortened 'baño'." }
-            },
-            "I ate yesterday": {
-                spanish: "Comí ayer",
-                pronunciation: "koh-MEE ah-YEHR",
-                breakdown: [
-                    { spanish: "Comí", english: "I ate" },
-                    { spanish: "ayer", english: "yesterday" }
-                ],
-                grammar: "Uses preterite tense 'comí' (completed action in the past). Time marker 'ayer' signals preterite, not imperfect.",
-                examples: [
-                    { spanish: "Hablé con mi amigo ayer.", english: "I spoke with my friend yesterday." },
-                    { spanish: "Ella estudió toda la noche.", english: "She studied all night." },
-                    { spanish: "Viví en México el año pasado.", english: "I lived in Mexico last year." }
-                ],
-                native: { text: "Ayer comí", explanation: "Native speakers often put time markers first for emphasis." },
-                student: { text: "Yo comí la comida ayer", explanation: "Adds subject 'yo' and object 'la comida' for extra clarity." }
-            },
-            "How are you": {
-                spanish: "¿Cómo estás?",
-                pronunciation: "KOH-moh es-TAHS",
-                breakdown: [
-                    { spanish: "¿Cómo", english: "How" },
-                    { spanish: "estás?", english: "are you?" }
-                ],
-                grammar: "Uses informal 'tú' form 'estás'. For formal situations, use '¿Cómo está usted?'",
-                examples: [
-                    { spanish: "¿Cómo está usted?", english: "How are you? (formal)" },
-                    { spanish: "¿Cómo estáis?", english: "How are you all? (Spain)" },
-                    { spanish: "¿Cómo están ustedes?", english: "How are you all? (Latin America)" }
-                ],
-                native: { text: "¿Qué tal?", explanation: "Very casual greeting, literally 'What such?' or 'How's it going?'" },
-                student: { text: "¿Cómo estás tú?", explanation: "Adds pronoun 'tú' for clarity, though it's redundant in natural speech." }
-            },
-            "I want coffee": {
-                spanish: "Quiero café",
-                pronunciation: "KYEH-roh kah-FEH",
-                breakdown: [
-                    { spanish: "Quiero", english: "I want" },
-                    { spanish: "café", english: "coffee" }
-                ],
-                grammar: "'Querer' is irregular (e→ie stem change). No article needed with 'café' when referring to coffee in general.",
-                examples: [
-                    { spanish: "Quiero un café con leche.", english: "I want a coffee with milk." },
-                    { spanish: "¿Quieres agua?", english: "Do you want water?" },
-                    { spanish: "Ella quiere aprender español.", english: "She wants to learn Spanish." }
-                ],
-                native: { text: "Me gustaría un café", explanation: "More polite conditional form 'I would like' commonly used when ordering." },
-                student: { text: "Yo quiero tomar café", explanation: "Adds 'yo' and verb 'tomar' (to drink/have) for clearer meaning." }
-            }
-        };
+    <button class="clear-btn" onclick="clearAll()">&#128465; Clear conversation</button>
 
-        const conjugations = {
-            "hablar": {
-                infinitive: "hablar",
-                english: "to speak",
-                tenses: [
-                    { name: "Present", forms: ["hablo", "hablas", "habla", "hablamos", "habláis", "hablan"], examples: ["Hablo español todos los días.", "¿Hablas inglés?"] },
-                    { name: "Preterite", forms: ["hablé", "hablaste", "habló", "hablamos", "hablasteis", "hablaron"], examples: ["Hablé con mi madre ayer.", "Él habló en la reunión."] },
-                    { name: "Imperfect", forms: ["hablaba", "hablabas", "hablaba", "hablábamos", "hablabais", "hablaban"], examples: ["Yo hablaba mucho cuando era niño.", "Ellos hablaban de deportes."] },
-                    { name: "Future", forms: ["hablaré", "hablarás", "hablará", "hablaremos", "hablaréis", "hablarán"], examples: ["Hablaré contigo mañana.", "Ellas hablarán en público."] },
-                    { name: "Conditional", forms: ["hablaría", "hablarías", "hablaría", "hablaríamos", "hablaríais", "hablarían"], examples: ["Yo hablaría más despacio.", "¿Hablarías con el jefe?"] },
-                    { name: "Present Subjunctive", forms: ["hable", "hables", "hable", "hablemos", "habléis", "hablen"], examples: ["Espero que hables con ella.", "Es importante que hablemos."] }
-                ]
-            },
-            "comer": {
-                infinitive: "comer",
-                english: "to eat",
-                tenses: [
-                    { name: "Present", forms: ["como", "comes", "come", "comemos", "coméis", "comen"], examples: ["Como verduras cada día.", "¿Comes carne?"] },
-                    { name: "Preterite", forms: ["comí", "comiste", "comió", "comimos", "comisteis", "comieron"], examples: ["Comí pizza anoche.", "Ellos comieron temprano."] },
-                    { name: "Imperfect", forms: ["comía", "comías", "comía", "comíamos", "comíais", "comían"], examples: ["Comía a las dos antes.", "Nosotros comíamos juntos."] },
-                    { name: "Future", forms: ["comeré", "comerás", "comerá", "comeremos", "comeréis", "comerán"], examples: ["Comeré contigo mañana.", "Comerán en casa."] },
-                    { name: "Conditional", forms: ["comería", "comerías", "comería", "comeríamos", "comeríais", "comerían"], examples: ["Comería más si pudiera.", "¿Comerías paella?"] },
-                    { name: "Present Subjunctive", forms: ["coma", "comas", "coma", "comamos", "comáis", "coman"], examples: ["Espero que comas bien.", "Quiero que comamos juntos."] }
-                ]
-            },
-            "vivir": {
-                infinitive: "vivir",
-                english: "to live",
-                tenses: [
-                    { name: "Present", forms: ["vivo", "vives", "vive", "vivimos", "vivís", "viven"], examples: ["Vivo en Madrid.", "¿Dónde vives?"] },
-                    { name: "Preterite", forms: ["viví", "viviste", "vivió", "vivimos", "vivisteis", "vivieron"], examples: ["Viví en México dos años.", "Ella vivió aquí antes."] },
-                    { name: "Imperfect", forms: ["vivía", "vivías", "vivía", "vivíamos", "vivíais", "vivían"], examples: ["Vivía cerca del mar.", "Vivíamos en una casa grande."] },
-                    { name: "Future", forms: ["viviré", "vivirás", "vivirá", "viviremos", "viviréis", "vivirán"], examples: ["Viviré en España algún día.", "Vivirán en paz."] },
-                    { name: "Conditional", forms: ["viviría", "vivirías", "viviría", "viviríamos", "viviríais", "vivirían"], examples: ["Viviría en la playa si pudiera.", "¿Vivirías en el campo?"] },
-                    { name: "Present Subjunctive", forms: ["viva", "vivas", "viva", "vivamos", "viváis", "vivan"], examples: ["Espero que vivas feliz.", "Ojalá que vivamos mucho tiempo."] }
-                ]
-            }
-        };
+</div>
 
-        let savedVocabulary = [];
+<!-- Footer -->
+<div class="page-footer">
+    &#127760; Powered by live translation &mdash; translates any sentence you type, instantly!
+</div>
 
-        document.getElementById('translateBtn').addEventListener('click', translateText);
-        document.getElementById('clearBtn').addEventListener('click', clearTranslation);
-        document.getElementById('saveVocabBtn').addEventListener('click', saveToVocabulary);
-        document.getElementById('conjugateBtn').addEventListener('click', showConjugations);
+<script>
+// ── Baby laugh using Web Audio API (synthesized giggly sound, no file needed) ──
+function playBabyLaugh() {
+    try {
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
 
-        document.getElementById('englishInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                translateText();
-            }
+        // Series of quick rising-falling tones that mimic a baby giggle
+        var laughNotes = [
+            {freq: 600, start: 0.00, dur: 0.10},
+            {freq: 750, start: 0.11, dur: 0.09},
+            {freq: 680, start: 0.21, dur: 0.10},
+            {freq: 820, start: 0.32, dur: 0.09},
+            {freq: 700, start: 0.42, dur: 0.11},
+            {freq: 900, start: 0.54, dur: 0.08},
+            {freq: 780, start: 0.63, dur: 0.12},
+            {freq: 950, start: 0.76, dur: 0.10},
+            {freq: 830, start: 0.87, dur: 0.13},
+        ];
+
+        laughNotes.forEach(function(note) {
+            var osc = ctx.createOscillator();
+            var gain = ctx.createGain();
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(note.freq, ctx.currentTime + note.start);
+            // Small pitch wobble for giggly feel
+            osc.frequency.linearRampToValueAtTime(note.freq * 1.15, ctx.currentTime + note.start + note.dur * 0.4);
+            osc.frequency.linearRampToValueAtTime(note.freq * 0.9, ctx.currentTime + note.start + note.dur);
+
+            gain.gain.setValueAtTime(0, ctx.currentTime + note.start);
+            gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + note.start + 0.02);
+            gain.gain.linearRampToValueAtTime(0, ctx.currentTime + note.start + note.dur);
+
+            osc.start(ctx.currentTime + note.start);
+            osc.stop(ctx.currentTime + note.start + note.dur + 0.01);
         });
 
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabName = tab.dataset.tab;
-                switchTab(tabName);
-            });
-        });
+        // Close context after sounds finish
+        setTimeout(function() { ctx.close(); }, 1200);
+    } catch(e) {
+        // Silently fail if audio isn't available
+    }
+}
 
-        document.getElementById('standardBtn').addEventListener('click', () => showTranslationMode('standard'));
-        document.getElementById('nativeBtn').addEventListener('click', () => showTranslationMode('native'));
-        document.getElementById('studentBtn').addEventListener('click', () => showTranslationMode('student'));
+var examples = [
+    "What time do you have to go to work tonight?",
+    "I have to leave by 7:00 PM.",
+    "Where is the baby?",
+    "Are you hungry?",
+    "Can you help me please?",
+    "I love you so much!",
+    "Good morning, how are you?",
+    "It is time to go to sleep.",
+    "Do you want something to eat?",
+    "I need to change your diaper.",
+    "Let's play together!",
+    "What is your favorite color?"
+];
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-            
-            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-            document.getElementById(`${tabName}-tab`).classList.add('active');
-            
-            if (tabName === 'vocabulary') {
-                displayVocabulary();
-            }
+function esc(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+function setLoading(on) {
+    var btn = document.getElementById("askBtn");
+    var spinner = document.getElementById("spinner");
+    var btnText = document.getElementById("btnText");
+    btn.disabled = on;
+    spinner.style.display = on ? "block" : "none";
+    btnText.textContent = on ? "Translating..." : "\uD83D\uDCAC Say it in Spanish!";
+}
+
+async function translate() {
+    var input = document.getElementById("englishInput").value.trim();
+    if (!input) return;
+
+    // Play baby laugh every time the button is pressed
+    playBabyLaugh();
+
+    var ph = document.getElementById("placeholder");
+    if (ph) ph.remove();
+
+    var conv = document.getElementById("conversation");
+
+    // English bubble
+    var engRow = document.createElement("div");
+    engRow.className = "bubble-row english";
+    engRow.innerHTML =
+        '<div class="avatar eng-avatar">\uD83D\uDE4B</div>' +
+        '<div class="bubble english-bubble">' +
+          '<div class="bubble-label">English</div>' +
+          '<div class="bubble-text">' + esc(input) + '</div>' +
+        '</div>';
+    conv.appendChild(engRow);
+
+    // Loading Spanish bubble
+    var espRow = document.createElement("div");
+    espRow.className = "bubble-row spanish loading-bubble";
+    espRow.innerHTML =
+        '<div class="avatar esp-avatar">\uD83D\uDC83</div>' +
+        '<div class="bubble spanish-bubble">' +
+          '<div class="bubble-label">En Espa\u00f1ol \uD83C\uDDEA\uD83C\uDDF8</div>' +
+          '<div class="bubble-text">Translating\u2026</div>' +
+        '</div>';
+    conv.appendChild(espRow);
+    espRow.scrollIntoView({ behavior: "smooth", block: "end" });
+
+    document.getElementById("englishInput").value = "";
+    setLoading(true);
+
+    try {
+        var url = "https://api.mymemory.translated.net/get?q=" +
+                  encodeURIComponent(input) + "&langpair=en|es";
+        var res = await fetch(url);
+        var data = await res.json();
+
+        var translated = "";
+        if (data && data.responseStatus === 200 && data.responseData) {
+            translated = data.responseData.translatedText;
+        } else {
+            translated = null;
         }
 
-        function translateText() {
-            const input = document.getElementById('englishInput').value.trim();
-            
-            if (!input) {
-                alert('Please enter some English text to translate.');
-                return;
-            }
+        espRow.classList.remove("loading-bubble");
 
-            const lowerInput = input.toLowerCase();
-            let translation = null;
-
-            for (const [key, value] of Object.entries(translations)) {
-                if (lowerInput === key.toLowerCase() || lowerInput.replace(/[?!.,]/g, '') === key.toLowerCase()) {
-                    translation = value;
-                    break;
-                }
-            }
-
-            if (!translation) {
-                translation = generateSmartTranslation(input);
-            }
-
-            displayTranslation(translation, input);
-            document.getElementById('resultsSection').style.display = 'block';
-            showTranslationMode('standard');
+        if (translated) {
+            espRow.querySelector(".bubble").innerHTML =
+                '<div class="bubble-label">En Espa\u00f1ol \uD83C\uDDEA\uD83C\uDDF8</div>' +
+                '<div class="bubble-text">' + esc(translated) + '</div>' +
+                '<div class="bubble-note">\uD83D\uDCA1 Live translation</div>';
+        } else {
+            espRow.querySelector(".bubble").innerHTML =
+                '<div class="bubble-label">En Espa\u00f1ol \uD83C\uDDEA\uD83C\uDDF8</div>' +
+                '<div class="bubble-text" style="color:var(--pink-warn)">\u26A0\uFE0F Translation failed. Check your internet and try again.</div>';
         }
+    } catch (err) {
+        espRow.classList.remove("loading-bubble");
+        espRow.querySelector(".bubble").innerHTML =
+            '<div class="bubble-label">En Espa\u00f1ol \uD83C\uDDEA\uD83C\uDDF8</div>' +
+            '<div class="bubble-text" style="color:var(--pink-warn)">\u26A0\uFE0F Could not reach the translation service. Make sure you\'re connected to the internet.</div>';
+    }
 
-        function generateSmartTranslation(input) {
-            const words = input.toLowerCase().split(' ');
-            const translations = translateEnglishToSpanish(input);
-            
-            return {
-                spanish: translations.spanish,
-                pronunciation: translations.pronunciation,
-                breakdown: translations.breakdown,
-                grammar: translations.grammar,
-                examples: translations.examples,
-                native: translations.native,
-                student: translations.student
-            };
-        }
+    setLoading(false);
+    espRow.scrollIntoView({ behavior: "smooth", block: "end" });
+}
 
-        function translateEnglishToSpanish(input) {
-            const text = input.trim();
-            const words = text.toLowerCase().split(' ');
-            let spanish = '';
-            let breakdown = [];
-            let grammar = '';
-            let pronunciation = '';
-            let examples = [];
-            
-            // Basic word-by-word dictionary
-            const dictionary = {
-                'i': 'yo', 'you': 'tú', 'he': 'él', 'she': 'ella', 'we': 'nosotros', 'they': 'ellos',
-                'am': 'estoy', 'is': 'está', 'are': 'estás',
-                'the': 'el/la', 'a': 'un/una', 'an': 'un/una',
-                'happy': 'feliz', 'sad': 'triste', 'tired': 'cansado/a', 'hungry': 'hambriento/a',
-                'go': 'voy', 'goes': 'va', 'come': 'vengo', 'comes': 'viene',
-                'to': 'a', 'from': 'de', 'in': 'en', 'on': 'en', 'at': 'en',
-                'school': 'la escuela', 'home': 'casa', 'work': 'trabajo', 'store': 'la tienda',
-                'like': 'gusta', 'love': 'encanta', 'want': 'quiero', 'need': 'necesito',
-                'food': 'comida', 'water': 'agua', 'coffee': 'café', 'tea': 'té',
-                'good': 'bueno/a', 'bad': 'malo/a', 'big': 'grande', 'small': 'pequeño/a',
-                'hello': 'hola', 'goodbye': 'adiós', 'please': 'por favor', 'thank': 'gracias',
-                'where': 'dónde', 'when': 'cuándo', 'what': 'qué', 'why': 'por qué', 'how': 'cómo',
-                'yes': 'sí', 'no': 'no', 'maybe': 'quizás',
-                'eat': 'como', 'eats': 'come', 'ate': 'comí', 'drink': 'bebo',
-                'today': 'hoy', 'tomorrow': 'mañana', 'yesterday': 'ayer',
-                'my': 'mi', 'your': 'tu', 'his': 'su', 'her': 'su', 'our': 'nuestro/a',
-                'dog': 'perro', 'cat': 'gato', 'house': 'casa', 'car': 'coche',
-                'friend': 'amigo/a', 'family': 'familia', 'mother': 'madre', 'father': 'padre',
-                'beautiful': 'hermoso/a', 'ugly': 'feo/a', 'nice': 'agradable',
-                'speak': 'hablo', 'speaks': 'habla', 'understand': 'entiendo',
-                'book': 'libro', 'pen': 'bolígrafo', 'table': 'mesa', 'chair': 'silla'
-            };
-            
-            // Translate word by word
-            const translatedWords = [];
-            words.forEach(word => {
-                const cleanWord = word.replace(/[?!.,]/g, '');
-                const translated = dictionary[cleanWord] || cleanWord;
-                translatedWords.push(translated);
-                breakdown.push({ spanish: translated, english: cleanWord });
-            });
-            
-            spanish = translatedWords.join(' ');
-            
-            // Add proper punctuation
-            if (text.includes('?')) {
-                spanish = '¿' + spanish + '?';
-                pronunciation = generatePronunciation(spanish);
-                grammar = "Spanish questions use inverted question marks (¿) at the beginning and (?) at the end.";
-            } else if (text.includes('!')) {
-                spanish = '¡' + spanish + '!';
-                pronunciation = generatePronunciation(spanish);
-                grammar = "Spanish exclamations use inverted exclamation marks (¡) at the beginning and (!) at the end.";
-            } else {
-                pronunciation = generatePronunciation(spanish);
-                grammar = "This is a basic word-for-word translation. Spanish grammar may require different word order and agreements. For more accurate translations, try the built-in phrases or consult a native speaker.";
-            }
-            
-            // Generate example sentences
-            examples = [
-                { spanish: "Estoy aprendiendo español.", english: "I am learning Spanish." },
-                { spanish: "¿Puedes ayudarme?", english: "Can you help me?" },
-                { spanish: "Me gusta practicar cada día.", english: "I like to practice every day." }
-            ];
-            
-            return {
-                spanish: spanish.charAt(0).toUpperCase() + spanish.slice(1),
-                pronunciation,
-                breakdown,
-                grammar,
-                examples,
-                native: { 
-                    text: spanish, 
-                    explanation: "Word-by-word translations may not sound natural to native speakers. Try the built-in phrases for more natural alternatives." 
-                },
-                student: { 
-                    text: spanish, 
-                    explanation: "This is a simple translation to help you understand the basic words. Real Spanish may use different grammar structures." 
-                }
-            };
-        }
+function clearAll() {
+    var conv = document.getElementById("conversation");
+    conv.innerHTML = '<div class="placeholder-msg" id="placeholder">\uD83C\uDF80 Type anything above and I\'ll translate the whole thing into Spanish! \uD83C\uDDEA\uD83C\uDDF8</div>';
+}
 
-        function generatePronunciation(spanish) {
-            // Basic pronunciation guide
-            let pronunciation = spanish
-                .replace(/ñ/g, 'NY')
-                .replace(/ll/g, 'Y')
-                .replace(/j/g, 'H')
-                .replace(/h/g, '')
-                .replace(/qu/gi, 'K')
-                .replace(/z/g, 'S')
-                .replace(/c([ei])/g, 'S$1')
-                .replace(/á/g, 'AH')
-                .replace(/é/g, 'EH')
-                .replace(/í/g, 'EE')
-                .replace(/ó/g, 'OH')
-                .replace(/ú/g, 'OO')
-                .toUpperCase();
-            
-            return pronunciation || 'Translation pronunciation';
-        }
+// Build chips
+var chipsEl = document.getElementById("chips");
+examples.forEach(function(phrase) {
+    var btn = document.createElement("button");
+    btn.className = "chip";
+    btn.textContent = phrase;
+    btn.onclick = function() {
+        document.getElementById("englishInput").value = phrase;
+        translate();
+    };
+    chipsEl.appendChild(btn);
+});
 
-        function generateSmartTranslationOld(input) {
-            const words = input.toLowerCase().split(' ');
-            let spanish = input;
-            let pronunciation = "Translation available for demo phrases";
-            let breakdown = [];
-            let grammar = "This is a demo translation. For accurate translations, try: 'I am happy', 'I go to school', 'The food is delicious', 'I like music', 'Where is the bathroom', 'I ate yesterday', 'How are you', or 'I want coffee'.";
-            let examples = [
-                { spanish: "Esta es una traducción de ejemplo.", english: "This is a sample translation." },
-                { spanish: "Prueba con las frases de ejemplo.", english: "Try the example phrases." }
-            ];
-
-
-            if (words.includes('hello') || words.includes('hi')) {
-                spanish = '¡Hola!';
-                pronunciation = 'OH-lah';
-                breakdown = [{ spanish: '¡Hola!', english: 'Hello!' }];
-                grammar = "Standard greeting in Spanish. Exclamation marks appear at both beginning (¡) and end (!)";
-                examples = [
-                    { spanish: "¡Hola! ¿Cómo estás?", english: "Hello! How are you?" },
-                    { spanish: "Hola, me llamo María.", english: "Hello, my name is María." }
-                ];
-            } else if (words.includes('thank') || words.includes('thanks')) {
-                spanish = 'Gracias';
-                pronunciation = 'GRAH-see-ahs';
-                breakdown = [{ spanish: 'Gracias', english: 'Thank you' }];
-                grammar = "'Gracias' is used for all forms of 'thank you'. Add 'muchas' (many) before it for extra emphasis.";
-                examples = [
-                    { spanish: "Muchas gracias por tu ayuda.", english: "Thank you very much for your help." },
-                    { spanish: "Gracias, eres muy amable.", english: "Thank you, you're very kind." }
-                ];
-            } else if (words.includes('goodbye') || words.includes('bye')) {
-                spanish = 'Adiós';
-                pronunciation = 'ah-dee-OHS';
-                breakdown = [{ spanish: 'Adiós', english: 'Goodbye' }];
-                grammar = "Formal goodbye. More casual options: 'Chao' or 'Hasta luego' (see you later).";
-                examples = [
-                    { spanish: "Adiós, hasta mañana.", english: "Goodbye, see you tomorrow." },
-                    { spanish: "Chao, nos vemos pronto.", english: "Bye, see you soon." }
-                ];
-            }
-
-            return {
-                spanish,
-                pronunciation,
-                breakdown,
-                grammar,
-                examples,
-                native: { text: spanish, explanation: "Try one of the built-in phrases for detailed native/student alternatives." },
-                student: { text: spanish, explanation: "Try one of the built-in phrases for detailed native/student alternatives." }
-            };
-
-            if (words.includes('hello') || words.includes('hi')) {
-                spanish = '¡Hola!';
-                pronunciation = 'OH-lah';
-                breakdown = [{ spanish: '¡Hola!', english: 'Hello!' }];
-                grammar = "Standard greeting in Spanish. Exclamation marks appear at both beginning (¡) and end (!)";
-                examples = [
-                    { spanish: "¡Hola! ¿Cómo estás?", english: "Hello! How are you?" },
-                    { spanish: "Hola, me llamo María.", english: "Hello, my name is María." }
-                ];
-            } else if (words.includes('thank') || words.includes('thanks')) {
-                spanish = 'Gracias';
-                pronunciation = 'GRAH-see-ahs';
-                breakdown = [{ spanish: 'Gracias', english: 'Thank you' }];
-                grammar = "'Gracias' is used for all forms of 'thank you'. Add 'muchas' (many) before it for extra emphasis.";
-                examples = [
-                    { spanish: "Muchas gracias por tu ayuda.", english: "Thank you very much for your help." },
-                    { spanish: "Gracias, eres muy amable.", english: "Thank you, you're very kind." }
-                ];
-            } else if (words.includes('goodbye') || words.includes('bye')) {
-                spanish = 'Adiós';
-                pronunciation = 'ah-dee-OHS';
-                breakdown = [{ spanish: 'Adiós', english: 'Goodbye' }];
-                grammar = "Formal goodbye. More casual options: 'Chao' or 'Hasta luego' (see you later).";
-                examples = [
-                    { spanish: "Adiós, hasta mañana.", english: "Goodbye, see you tomorrow." },
-                    { spanish: "Chao, nos vemos pronto.", english: "Bye, see you soon." }
-                ];
-            }
-
-            return {
-                spanish,
-                pronunciation,
-                breakdown,
-                grammar,
-                examples,
-                native: { text: spanish, explanation: "Try one of the built-in phrases for detailed native/student alternatives." },
-                student: { text: spanish, explanation: "Try one of the built-in phrases for detailed native/student alternatives." }
-            };
-        }
-
-        function displayTranslation(translation, originalInput) {
-            document.getElementById('spanishText').textContent = translation.spanish;
-            document.getElementById('pronunciation').textContent = `🔊 ${translation.pronunciation}`;
-            
-            const grammarNote = document.getElementById('grammarNote');
-            grammarNote.innerHTML = `<strong>Grammar Note:</strong> ${translation.grammar}`;
-            
-            const breakdownDiv = document.getElementById('wordBreakdown');
-            breakdownDiv.innerHTML = '';
-            translation.breakdown.forEach(pair => {
-                const wordPair = document.createElement('div');
-                wordPair.className = 'word-pair';
-                wordPair.innerHTML = `
-                    <span class="spanish-word">${pair.spanish}</span>
-                    <span class="english-word">${pair.english}</span>
-                `;
-                breakdownDiv.appendChild(wordPair);
-            });
-            
-            const examplesDiv = document.getElementById('examples');
-            examplesDiv.innerHTML = '';
-            translation.examples.forEach(example => {
-                const exampleItem = document.createElement('div');
-                exampleItem.className = 'example-item';
-                exampleItem.innerHTML = `
-                    <div class="example-spanish">${example.spanish}</div>
-                    <div class="example-english">${example.english}</div>
-                `;
-                examplesDiv.appendChild(exampleItem);
-            });
-
-            document.getElementById('nativeText').textContent = translation.native.text;
-            document.getElementById('nativeExplanation').textContent = translation.native.explanation;
-            
-            document.getElementById('studentText').textContent = translation.student.text;
-            document.getElementById('studentExplanation').textContent = translation.student.explanation;
-        }
-
-        function showTranslationMode(mode) {
-            document.querySelectorAll('.btn-toggle').forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById('standardTranslation').style.display = 'none';
-            document.getElementById('nativeTranslation').style.display = 'none';
-            document.getElementById('studentTranslation').style.display = 'none';
-            
-            if (mode === 'standard') {
-                document.getElementById('standardBtn').classList.add('active');
-                document.getElementById('standardTranslation').style.display = 'block';
-            } else if (mode === 'native') {
-                document.getElementById('nativeBtn').classList.add('active');
-                document.getElementById('nativeTranslation').style.display = 'block';
-            } else if (mode === 'student') {
-                document.getElementById('studentBtn').classList.add('active');
-                document.getElementById('studentTranslation').style.display = 'block';
-            }
-        }
-
-        function clearTranslation() {
-            document.getElementById('englishInput').value = '';
-            document.getElementById('resultsSection').style.display = 'none';
-        }
-
-        function saveToVocabulary() {
-            const spanish = document.getElementById('spanishText').textContent;
-            const english = document.getElementById('englishInput').value.trim();
-            const pronunciation = document.getElementById('pronunciation').textContent.replace('🔊 ', '');
-            
-            if (!spanish || !english) return;
-            
-            const vocabItem = {
-                spanish,
-                english,
-                pronunciation,
-                timestamp: new Date().toISOString()
-            };
-            
-            const exists = savedVocabulary.some(item => item.spanish === spanish);
-            if (!exists) {
-                savedVocabulary.push(vocabItem);
-                alert(`✅ Saved "${spanish}" to your vocabulary!`);
-            } else {
-                alert('This phrase is already in your vocabulary.');
-            }
-        }
-
-        function displayVocabulary() {
-            const vocabList = document.getElementById('vocabList');
-            
-            if (savedVocabulary.length === 0) {
-                vocabList.innerHTML = '<div class="empty-state">No vocabulary saved yet. Use the translator and click "Save to My Vocabulary" to start building your word collection!</div>';
-                return;
-            }
-            
-            vocabList.innerHTML = '';
-            savedVocabulary.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = 'vocab-card';
-                card.innerHTML = `
-                    <div style="display: flex; justify-content: space-between; align-items: start;">
-                        <div>
-                            <h3 style="margin-bottom: 5px;">${item.spanish}</h3>
-                            <p style="color: var(--color-text-secondary); margin-bottom: 5px;">${item.english}</p>
-                            <p style="color: var(--color-text-muted); font-size: 0.85rem; font-style: italic;">🔊 ${item.pronunciation}</p>
-                        </div>
-                        <button class="btn-secondary" style="padding: 6px 12px; font-size: 0.85rem;" onclick="removeVocab(${index})">Remove</button>
-                    </div>
-                `;
-                vocabList.appendChild(card);
-            });
-        }
-
-        function removeVocab(index) {
-            savedVocabulary.splice(index, 1);
-            displayVocabulary();
-        }
-
-        function showConjugations() {
-            const input = document.getElementById('verbInput').value.trim().toLowerCase();
-            const resultsDiv = document.getElementById('conjugationResults');
-            
-            if (!input) {
-                alert('Please enter a Spanish verb.');
-                return;
-            }
-            
-            const conjugation = conjugations[input];
-            
-            if (!conjugation) {
-                resultsDiv.innerHTML = `
-                    <div class="grammar-note" style="margin-top: 15px;">
-                        <strong>Verb not found</strong>
-                        This demo includes conjugations for: <strong>hablar</strong>, <strong>comer</strong>, and <strong>vivir</strong>.<br>
-                        These represent the three main verb types (-ar, -er, -ir). Try one of these!
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = `
-                <div class="translation-main" style="margin-top: 20px;">
-                    <h2 style="color: var(--color-accent); margin-bottom: 10px;">${conjugation.infinitive}</h2>
-                    <p style="color: var(--color-text-muted); font-size: 0.95rem;">${conjugation.english}</p>
-                </div>
-            `;
-            
-            conjugation.tenses.forEach(tense => {
-                html += `
-                    <div class="conjugation-table">
-                        <h3 style="color: var(--color-accent); margin-bottom: 10px;">${tense.name}</h3>
-                        <table>
-                            <tr>
-                                <th>Pronoun</th>
-                                <th>Conjugation</th>
-                            </tr>
-                            <tr><td>yo</td><td>${tense.forms[0]}</td></tr>
-                            <tr><td>tú</td><td>${tense.forms[1]}</td></tr>
-                            <tr><td>él/ella/usted</td><td>${tense.forms[2]}</td></tr>
-                            <tr><td>nosotros/as</td><td>${tense.forms[3]}</td></tr>
-                            <tr><td>vosotros/as</td><td>${tense.forms[4]}</td></tr>
-                            <tr><td>ellos/ellas/ustedes</td><td>${tense.forms[5]}</td></tr>
-                        </table>
-                        <div style="margin-top: 10px;">
-                            <div class="example-item">
-                                <div class="example-spanish">${tense.examples[0]}</div>
-                            </div>
-                            <div class="example-item">
-                                <div class="example-spanish">${tense.examples[1]}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-            
-            resultsDiv.innerHTML = html;
-        }
-    </script>
+document.getElementById("askBtn").addEventListener("click", translate);
+document.getElementById("englishInput").addEventListener("keydown", function(e) {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); translate(); }
+});
+</script>
 </body>
 </html>
-
