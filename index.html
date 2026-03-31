@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,9 +21,6 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background-color: var(--pink-dark);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' opacity='0.07'%3E%3Ctext x='10' y='40' font-size='28'%3E%F0%9F%8D%BC%3C/text%3E%3Ctext x='110' y='30' font-size='24'%3E%F0%9F%91%B6%3C/text%3E%3Ctext x='60' y='100' font-size='22'%3E%F0%9F%A7%B8%3C/text%3E%3Ctext x='150' y='110' font-size='26'%3E%F0%9F%92%95%3C/text%3E%3Ctext x='20' y='160' font-size='20'%3E%F0%9F%8E%80%3C/text%3E%3C/svg%3E");
-            background-size: 200px 200px;
-            background-repeat: repeat;
             color: var(--pink-light);
             min-height: 100vh;
             padding: 24px 16px 80px;
@@ -107,48 +105,41 @@
         .english-bubble .bubble-text { color: #e0eaff; }
         .spanish-bubble .bubble-text { color: var(--pink-light); font-weight: 500; }
         .bubble-note { margin-top: 8px; font-size: 0.78rem; color: var(--pink-faint); font-style: italic; }
-        .loading-bubble .bubble-text {
-            color: var(--pink-faint); font-style: italic;
-            animation: pulse 1.2s ease-in-out infinite;
+        .speak-btn {
+            margin-top: 10px; padding: 6px 14px;
+            background: transparent; border: 1px solid var(--pink-muted);
+            color: var(--pink-muted); border-radius: 20px;
+            font-size: 0.8rem; cursor: pointer; transition: all 0.2s;
         }
+        .speak-btn:hover { background: var(--pink-soft); color: var(--pink-light); }
+        .loading-text { color: var(--pink-faint); font-style: italic; animation: pulse 1.2s ease-in-out infinite; }
         @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
         .placeholder-msg { text-align: center; color: var(--pink-soft); font-style: italic; padding: 40px 20px; font-size: 0.95rem; }
         .clear-btn {
             width: 100%; padding: 10px; background: transparent;
             border: 1px solid var(--pink-soft); color: var(--pink-muted);
             border-radius: 8px; font-size: 0.85rem; cursor: pointer;
-            margin-top: 20px; margin-bottom: 40px; transition: all 0.2s;
+            margin-top: 20px; transition: all 0.2s;
         }
         .clear-btn:hover { border-color: var(--pink-warn); color: var(--pink-warn); }
-        /* Footer */
         .page-footer {
-            text-align: center;
-            padding: 18px 16px;
-            color: var(--pink-faint);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--pink-soft);
-            margin-top: 20px;
-            letter-spacing: 0.02em;
-        }
-        @media (max-width: 500px) {
-            header h1 { font-size: 1.4rem; }
-            .bubble { max-width: 90%; padding: 12px 14px; }
-            .bubble-text { font-size: 1rem; }
+            text-align: center; padding: 18px 16px;
+            color: var(--pink-faint); font-size: 0.85rem;
+            border-top: 1px solid var(--pink-soft); margin-top: 20px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-
     <header>
         <h1>&#127466;&#127480; Spanish Learning for Delaney &#128118;&#128149;</h1>
-        <p>Auntie's special Spanish practice &mdash; type ANYTHING in English! &#127868;&#10024;</p>
+        <p>Type anything in English and hear it in Spanish! &#127868;&#10024;</p>
     </header>
 
     <div class="input-card">
         <label>Type anything in English:</label>
-        <textarea id="englishInput" placeholder="Type any sentence, question, or phrase..." rows="3"></textarea>
-        <button class="ask-btn" id="askBtn">
+        <textarea id="englishInput" placeholder="Type any sentence, question, or phrase..."></textarea>
+        <button class="ask-btn" id="askBtn" onclick="translate()">
             <div class="spinner" id="spinner"></div>
             <span id="btnText">&#128172; Say it in Spanish!</span>
         </button>
@@ -158,69 +149,21 @@
 
     <div class="conversation" id="conversation">
         <div class="placeholder-msg" id="placeholder">
-            &#127872; Type anything above and I'll translate the whole thing into Spanish! &#127466;&#127480;
+            &#127872; Type anything above and I'll translate it into Spanish! &#127466;&#127480;
         </div>
     </div>
 
     <button class="clear-btn" onclick="clearAll()">&#128465; Clear conversation</button>
-
 </div>
 
-<!-- Footer -->
 <div class="page-footer">
     &#127760; Powered by live translation &mdash; translates any sentence you type, instantly!
 </div>
 
 <script>
-// ── Baby laugh using Web Audio API (synthesized giggly sound, no file needed) ──
-function playBabyLaugh() {
-    try {
-        var ctx = new (window.AudioContext || window.webkitAudioContext)();
-
-        // Series of quick rising-falling tones that mimic a baby giggle
-        var laughNotes = [
-            {freq: 600, start: 0.00, dur: 0.10},
-            {freq: 750, start: 0.11, dur: 0.09},
-            {freq: 680, start: 0.21, dur: 0.10},
-            {freq: 820, start: 0.32, dur: 0.09},
-            {freq: 700, start: 0.42, dur: 0.11},
-            {freq: 900, start: 0.54, dur: 0.08},
-            {freq: 780, start: 0.63, dur: 0.12},
-            {freq: 950, start: 0.76, dur: 0.10},
-            {freq: 830, start: 0.87, dur: 0.13},
-        ];
-
-        laughNotes.forEach(function(note) {
-            var osc = ctx.createOscillator();
-            var gain = ctx.createGain();
-
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(note.freq, ctx.currentTime + note.start);
-            // Small pitch wobble for giggly feel
-            osc.frequency.linearRampToValueAtTime(note.freq * 1.15, ctx.currentTime + note.start + note.dur * 0.4);
-            osc.frequency.linearRampToValueAtTime(note.freq * 0.9, ctx.currentTime + note.start + note.dur);
-
-            gain.gain.setValueAtTime(0, ctx.currentTime + note.start);
-            gain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + note.start + 0.02);
-            gain.gain.linearRampToValueAtTime(0, ctx.currentTime + note.start + note.dur);
-
-            osc.start(ctx.currentTime + note.start);
-            osc.stop(ctx.currentTime + note.start + note.dur + 0.01);
-        });
-
-        // Close context after sounds finish
-        setTimeout(function() { ctx.close(); }, 1200);
-    } catch(e) {
-        // Silently fail if audio isn't available
-    }
-}
-
 var examples = [
+    "If I'm going to graduate high school early this year, I'm really going to have to study hard with this Spanish!",
     "What time do you have to go to work tonight?",
-    "I have to leave by 7:00 PM.",
     "Where is the baby?",
     "Are you hungry?",
     "Can you help me please?",
@@ -234,50 +177,55 @@ var examples = [
 ];
 
 function esc(s) {
-    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    return String(s)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
 }
 
 function setLoading(on) {
-    var btn = document.getElementById("askBtn");
-    var spinner = document.getElementById("spinner");
-    var btnText = document.getElementById("btnText");
-    btn.disabled = on;
-    spinner.style.display = on ? "block" : "none";
-    btnText.textContent = on ? "Translating..." : "\uD83D\uDCAC Say it in Spanish!";
+    document.getElementById("askBtn").disabled = on;
+    document.getElementById("spinner").style.display = on ? "block" : "none";
+    document.getElementById("btnText").textContent = on ? "Translating..." : String.fromCodePoint(0x1F4AC) + " Say it in Spanish!";
+}
+
+function speakSpanish(text) {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    var utter = new SpeechSynthesisUtterance(text);
+    utter.lang = "es-ES";
+    utter.rate = 0.9;
+    window.speechSynthesis.speak(utter);
 }
 
 async function translate() {
     var input = document.getElementById("englishInput").value.trim();
     if (!input) return;
 
-    // Play baby laugh every time the button is pressed
-    playBabyLaugh();
-
     var ph = document.getElementById("placeholder");
     if (ph) ph.remove();
 
     var conv = document.getElementById("conversation");
 
-    // English bubble
     var engRow = document.createElement("div");
     engRow.className = "bubble-row english";
     engRow.innerHTML =
-        '<div class="avatar eng-avatar">\uD83D\uDE4B</div>' +
-        '<div class="bubble english-bubble">' +
-          '<div class="bubble-label">English</div>' +
-          '<div class="bubble-text">' + esc(input) + '</div>' +
-        '</div>';
+        "<div class=\"avatar eng-avatar\">&#128587;</div>" +
+        "<div class=\"bubble english-bubble\">" +
+          "<div class=\"bubble-label\">English</div>" +
+          "<div class=\"bubble-text\">" + esc(input) + "</div>" +
+        "</div>";
     conv.appendChild(engRow);
 
-    // Loading Spanish bubble
     var espRow = document.createElement("div");
-    espRow.className = "bubble-row spanish loading-bubble";
+    espRow.className = "bubble-row spanish";
     espRow.innerHTML =
-        '<div class="avatar esp-avatar">\uD83D\uDC83</div>' +
-        '<div class="bubble spanish-bubble">' +
-          '<div class="bubble-label">En Espa\u00f1ol \uD83C\uDDEA\uD83C\uDDF8</div>' +
-          '<div class="bubble-text">Translating\u2026</div>' +
-        '</div>';
+        "<div class=\"avatar esp-avatar\">&#128131;</div>" +
+        "<div class=\"bubble spanish-bubble\">" +
+          "<div class=\"bubble-label\">En Espa&#241;ol &#127466;&#127480;</div>" +
+          "<div class=\"bubble-text loading-text\">Translating&#8230;</div>" +
+        "</div>";
     conv.appendChild(espRow);
     espRow.scrollIntoView({ behavior: "smooth", block: "end" });
 
@@ -285,35 +233,29 @@ async function translate() {
     setLoading(true);
 
     try {
-        var url = "https://api.mymemory.translated.net/get?q=" +
-                  encodeURIComponent(input) + "&langpair=en|es";
+        var url = "https://api.mymemory.translated.net/get?q=" + encodeURIComponent(input) + "&langpair=en|es";
         var res = await fetch(url);
         var data = await res.json();
+        var translated = (data && data.responseStatus === 200 && data.responseData)
+            ? data.responseData.translatedText : null;
 
-        var translated = "";
-        if (data && data.responseStatus === 200 && data.responseData) {
-            translated = data.responseData.translatedText;
-        } else {
-            translated = null;
-        }
-
-        espRow.classList.remove("loading-bubble");
-
+        var bubbleEl = espRow.querySelector(".bubble");
         if (translated) {
-            espRow.querySelector(".bubble").innerHTML =
-                '<div class="bubble-label">En Espa\u00f1ol \uD83C\uDDEA\uD83C\uDDF8</div>' +
-                '<div class="bubble-text">' + esc(translated) + '</div>' +
-                '<div class="bubble-note">\uD83D\uDCA1 Live translation</div>';
+            bubbleEl.innerHTML =
+                "<div class=\"bubble-label\">En Espa&#241;ol &#127466;&#127480;</div>" +
+                "<div class=\"bubble-text\">" + esc(translated) + "</div>" +
+                "<div class=\"bubble-note\">&#128162; Live translation &bull; Auto-spoken in Spanish</div>" +
+                "<button class=\"speak-btn\" onclick=\"speakSpanish(" + JSON.stringify(translated) + ")\">&#128266; Hear it again</button>";
+            speakSpanish(translated);
         } else {
-            espRow.querySelector(".bubble").innerHTML =
-                '<div class="bubble-label">En Espa\u00f1ol \uD83C\uDDEA\uD83C\uDDF8</div>' +
-                '<div class="bubble-text" style="color:var(--pink-warn)">\u26A0\uFE0F Translation failed. Check your internet and try again.</div>';
+            bubbleEl.innerHTML =
+                "<div class=\"bubble-label\">En Espa&#241;ol &#127466;&#127480;</div>" +
+                "<div class=\"bubble-text\" style=\"color:var(--pink-warn)\">&#9888; Translation failed. Check your internet and try again.</div>";
         }
-    } catch (err) {
-        espRow.classList.remove("loading-bubble");
+    } catch(err) {
         espRow.querySelector(".bubble").innerHTML =
-            '<div class="bubble-label">En Espa\u00f1ol \uD83C\uDDEA\uD83C\uDDF8</div>' +
-            '<div class="bubble-text" style="color:var(--pink-warn)">\u26A0\uFE0F Could not reach the translation service. Make sure you\'re connected to the internet.</div>';
+            "<div class=\"bubble-label\">En Espa&#241;ol &#127466;&#127480;</div>" +
+            "<div class=\"bubble-text\" style=\"color:var(--pink-warn)\">&#9888; Could not reach the translation service. Make sure you're connected to the internet.</div>";
     }
 
     setLoading(false);
@@ -321,11 +263,10 @@ async function translate() {
 }
 
 function clearAll() {
-    var conv = document.getElementById("conversation");
-    conv.innerHTML = '<div class="placeholder-msg" id="placeholder">\uD83C\uDF80 Type anything above and I\'ll translate the whole thing into Spanish! \uD83C\uDDEA\uD83C\uDDF8</div>';
+    document.getElementById("conversation").innerHTML =
+        "<div class=\"placeholder-msg\" id=\"placeholder\">&#127872; Type anything above and I'll translate it into Spanish! &#127466;&#127480;</div>";
 }
 
-// Build chips
 var chipsEl = document.getElementById("chips");
 examples.forEach(function(phrase) {
     var btn = document.createElement("button");
@@ -338,7 +279,6 @@ examples.forEach(function(phrase) {
     chipsEl.appendChild(btn);
 });
 
-document.getElementById("askBtn").addEventListener("click", translate);
 document.getElementById("englishInput").addEventListener("keydown", function(e) {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); translate(); }
 });
